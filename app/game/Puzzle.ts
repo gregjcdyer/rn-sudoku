@@ -4,7 +4,7 @@ export const generatePuzzle = (): number[][] => {
 
   for (let i = 0; i < size; i++) {
     for (let j = 0; j < size; j++) {
-      puzzle[i][j] = 0;
+      puzzle[i][j] = j + 1;
     }
   }
 

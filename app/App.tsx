@@ -19,6 +19,7 @@ import {
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {GameBoard} from './components/GameBoard';
+import {generatePuzzle} from './game/Puzzle';
 
 type SectionProps = PropsWithChildren<{
   title?: string;
@@ -57,6 +58,8 @@ function App(): React.JSX.Element {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
+  const puzzle = generatePuzzle();
+
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar
@@ -71,7 +74,7 @@ function App(): React.JSX.Element {
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
           <Section>Sudoku</Section>
-          <GameBoard />
+          <GameBoard puzzle={puzzle} />
         </View>
       </ScrollView>
     </SafeAreaView>
