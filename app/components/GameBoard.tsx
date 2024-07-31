@@ -1,5 +1,6 @@
 import {StyleSheet, Text, View} from 'react-native';
 import {NumberBar} from './NumberBar';
+import {validatePuzzle} from '../game/Puzzle';
 
 type GameBoardProps = {
   puzzle: number[][];
@@ -303,6 +304,7 @@ export const GameBoard = ({puzzle}: GameBoardProps) => {
         </View>
       </View>
       <NumberBar />
+      <Text>{validatePuzzle(puzzle) ? 'valid' : 'invalid'}</Text>
     </>
   );
 };
