@@ -19,9 +19,20 @@ export const generateRow = (puzzle: Puzzle, row: number): Puzzle => {
   const newRow = new Array(size).fill(0);
 
   for (let i = 0; i < size; i++) {
-    // do {
-    newRow[i] = Math.floor(Math.random() * 9) + 1;
-    // } while (!validateRows(puzzle));
+    // timeout to prevent infinite loop
+    let timeout = 0;
+    while (timeout < 1000) {
+      timeout++;
+      // set random number between 1 and 9
+      newRow[i] = Math.floor(Math.random() * 9) + 1;
+
+      // check if row is unique
+      const values = newRow.filter(r => r !== 0);
+      const unique = values.length === new Set(values).size;
+      if (unique) {
+        break;
+      }
+    }
   }
 
   puzzle[row] = newRow;
@@ -41,7 +52,8 @@ export const validateRows = (puzzle: Puzzle): boolean => {
     const row = element;
 
     // count unique numbers in the row
-    const unique = row.filter(r => r !== 0).length === new Set(row).size;
+    const values = row.filter(r => r !== 0);
+    const unique = values.length === new Set(values).size;
 
     if (!unique) {
       return false;
