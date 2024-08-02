@@ -2,9 +2,7 @@ type Puzzle = number[][];
 
 export const generatePuzzle = (): Puzzle => {
   const size = 9;
-  const puzzle = new Array(size)
-    .fill(null)
-    .map(() => new Array(size).fill(null));
+  const puzzle = new Array(size).fill(0).map(() => new Array(size).fill(0));
 
   for (let i = 0; i < size; i++) {
     for (let j = 0; j < size; j++) {
@@ -16,17 +14,35 @@ export const generatePuzzle = (): Puzzle => {
   return puzzle;
 };
 
+export const generateRow = (puzzle: Puzzle, row: number): Puzzle => {
+  const size = 9;
+  const newRow = new Array(size).fill(0);
+
+  for (let i = 0; i < size; i++) {
+    // do {
+    newRow[i] = Math.floor(Math.random() * 9) + 1;
+    // } while (!validateRows(puzzle));
+  }
+
+  puzzle[row] = newRow;
+
+  return puzzle;
+};
+
 export const validatePuzzle = (puzzle: Puzzle): boolean => {
   return (
     validateColumns(puzzle) && validateRows(puzzle) && validateBoxes(puzzle)
   );
 };
 
-const validateRows = (puzzle: Puzzle): boolean => {
+export const validateRows = (puzzle: Puzzle): boolean => {
   // Check if each row has unique numbers
   for (const element of puzzle) {
     const row = element;
-    const unique = new Set(row).size === row.length;
+
+    // count unique numbers in the row
+    const unique = row.filter(r => r !== 0).length === new Set(row).size;
+
     if (!unique) {
       return false;
     }
@@ -39,7 +55,7 @@ const validateColumns = (puzzle: Puzzle): boolean => {
   for (let i = 0; i < puzzle.length; i++) {
     const column = puzzle.map(row => row[i]);
     const unique = new Set(column).size === column.length;
-    if (!unique) {
+    if (!unique && !column.includes(0)) {
       return false;
     }
   }
@@ -58,7 +74,7 @@ const validateBoxes = (puzzle: Puzzle): boolean => {
       }
       const unique = new Set(box).size === box.length;
       // ignore 0 as it is a placeholder
-      if (!unique) {
+      if (!unique && !box.includes(0)) {
         return false;
       }
     }
