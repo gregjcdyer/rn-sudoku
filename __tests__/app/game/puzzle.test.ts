@@ -1,7 +1,6 @@
 import {
   generatePuzzle,
   generateRow,
-  validatePuzzle,
   validateRows,
 } from '../../../app/game/Puzzle';
 
@@ -51,7 +50,7 @@ describe('Puzzle', () => {
     expect(boxes).not.toContain(false);
   });
 
-  it.only("generates a row that's unique", () => {
+  it("generates a row that's unique", () => {
     let puzzle = generatePuzzle();
     const row = 0;
     puzzle = generateRow(puzzle, row);
