@@ -2,16 +2,39 @@ type Puzzle = number[][];
 
 export const generatePuzzle = (): Puzzle => {
   const size = 9;
-  const puzzle = new Array(size).fill(0).map(() => new Array(size).fill(0));
+  let puzzle = new Array(size).fill(0).map(() => new Array(size).fill(0));
 
-  for (let i = 0; i < size; i++) {
+  // generate first row
+  puzzle[0] = generateUniqueRow();
+
+  for (let i = 1; i < size; i++) {
+    const row = generateUniqueRow();
     for (let j = 0; j < size; j++) {
-      // set random number between 1 and 9
-      puzzle[i][j] = Math.floor(Math.random() * 9) + 1;
+      for (let k = 0; k < row.length; k++) {
+        puzzle[i][j] = row[k];
+
+        if (validatePuzzle(puzzle)) {
+          // remove the number from the row
+          row.splice(k, 1);
+          break;
+        }
+      }
     }
   }
 
   return puzzle;
+};
+
+export const generateUniqueRow = (): number[] => {
+  const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+  // Shuffle the array using Fisher-Yates algorithm
+  for (let i = numbers.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [numbers[i], numbers[j]] = [numbers[j], numbers[i]];
+  }
+
+  return numbers;
 };
 
 export const generateRow = (puzzle: Puzzle, row: number): Puzzle => {
@@ -65,9 +88,10 @@ export const validateRows = (puzzle: Puzzle): boolean => {
 const validateColumns = (puzzle: Puzzle): boolean => {
   // check if each column has unique numbers
   for (let i = 0; i < puzzle.length; i++) {
-    const column = puzzle.map(row => row[i]);
+    const column = puzzle.map(row => row[i]).filter(r => r !== 0);
+
     const unique = new Set(column).size === column.length;
-    if (!unique && !column.includes(0)) {
+    if (!unique) {
       return false;
     }
   }
@@ -84,9 +108,10 @@ const validateBoxes = (puzzle: Puzzle): boolean => {
           box.push(puzzle[k][l]);
         }
       }
-      const unique = new Set(box).size === box.length;
+      const values = box.filter(r => r !== 0);
+      const unique = new Set(values).size === values.length;
       // ignore 0 as it is a placeholder
-      if (!unique && !box.includes(0)) {
+      if (!unique) {
         return false;
       }
     }

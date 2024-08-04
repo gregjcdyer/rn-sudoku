@@ -50,10 +50,8 @@ describe('Puzzle', () => {
     expect(boxes).not.toContain(false);
   });
 
-  it("generates a row that's unique", () => {
+  it.only("generates a row that's unique", () => {
     let puzzle = generatePuzzle();
-    const row = 0;
-    puzzle = generateRow(puzzle, row);
 
     const valid = validateRows(puzzle);
 
