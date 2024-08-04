@@ -37,32 +37,6 @@ export const generateUniqueRow = (): number[] => {
   return numbers;
 };
 
-export const generateRow = (puzzle: Puzzle, row: number): Puzzle => {
-  const size = 9;
-  const newRow = new Array(size).fill(0);
-
-  for (let i = 0; i < size; i++) {
-    // timeout to prevent infinite loop
-    let timeout = 0;
-    while (timeout < 1000) {
-      timeout++;
-      // set random number between 1 and 9
-      newRow[i] = Math.floor(Math.random() * 9) + 1;
-
-      // check if row is unique
-      const values = newRow.filter(r => r !== 0);
-      const unique = values.length === new Set(values).size;
-      if (unique) {
-        break;
-      }
-    }
-  }
-
-  puzzle[row] = newRow;
-
-  return puzzle;
-};
-
 export const validatePuzzle = (puzzle: Puzzle): boolean => {
   return (
     validateColumns(puzzle) && validateRows(puzzle) && validateBoxes(puzzle)
