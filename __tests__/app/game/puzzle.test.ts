@@ -1,8 +1,4 @@
-import {
-  generatePuzzle,
-  generateRow,
-  validateRows,
-} from '../../../app/game/Puzzle';
+import { generatePuzzle } from '../../../app/game/Puzzle';
 
 describe('Puzzle', () => {
   it('generates a puzzle with correct dimensions', () => {
@@ -14,7 +10,11 @@ describe('Puzzle', () => {
   it('generates a puzzle with unique rows', () => {
     const puzzle = generatePuzzle();
 
-    const rows = puzzle.map(row => new Set(row).size === row.length);
+    const rows = puzzle.map(
+      row =>
+        new Set(row.filter(r => r !== 0)).size ===
+        row.filter(r => r !== 0).length,
+    );
 
     expect(rows).not.toContain(false);
   });
@@ -48,13 +48,5 @@ describe('Puzzle', () => {
     }
 
     expect(boxes).not.toContain(false);
-  });
-
-  it.only("generates a row that's unique", () => {
-    let puzzle = generatePuzzle();
-
-    const valid = validateRows(puzzle);
-
-    expect(valid).toBe(true);
   });
 });

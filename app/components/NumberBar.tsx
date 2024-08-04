@@ -1,5 +1,5 @@
-import {View} from 'react-native';
-import {Button} from './Button';
+import { View } from 'react-native';
+import { Button } from './Button';
 
 export const NumberBar = () => {
   return (

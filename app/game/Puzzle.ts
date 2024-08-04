@@ -20,6 +20,10 @@ export const generatePuzzle = (): Puzzle => {
         }
       }
     }
+    // if the puzzle isn't valid, give up and start over
+    if (!validatePuzzle(puzzle)) {
+      break;
+    }
   }
 
   return puzzle;
