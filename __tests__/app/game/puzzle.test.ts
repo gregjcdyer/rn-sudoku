@@ -49,7 +49,7 @@ describe('Puzzle', () => {
 
     expect(boxes).not.toContain(false);
   });
-  it.only('finds the remaining numbers for a given row', () => {
+  it('finds the remaining numbers for a given row', () => {
     const puzzle = [
       [9, 2, 3, 6, 7, 5, 8, 1, 4],
       [4, 8, 7, 1, 9, 3, 5, 2, 6],

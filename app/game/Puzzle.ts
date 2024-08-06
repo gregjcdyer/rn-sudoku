@@ -1,3 +1,5 @@
+import * as _ from 'lodash';
+
 type Puzzle = number[][];
 
 export const generatePuzzle = (): Puzzle => {
@@ -114,13 +116,5 @@ export const findBoxNumbers = (
     }
   }
 
-  // find the numbers that are missing from the box
-  for (let i = 0; i < box.length; i++) {
-    const index = numbers.indexOf(box[i]);
-    if (index !== -1) {
-      numbers.splice(index, 1);
-    }
-  }
-
-  return numbers;
+  return _.difference(numbers, box);
 };
