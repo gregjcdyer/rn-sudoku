@@ -96,3 +96,22 @@ const validateBoxes = (puzzle: Puzzle): boolean => {
   }
   return true;
 };
+
+// finds the numbers required to solve a 3 x 3 box
+export const findBoxNumbers = (
+  puzzle: Puzzle,
+  row: number,
+  col: number,
+): number[] => {
+  const box: number[] = [];
+  const startRow = Math.floor(row / 3) * 3;
+  const startCol = Math.floor(col / 3) * 3;
+
+  for (let i = startRow; i < startRow + 3; i++) {
+    for (let j = startCol; j < startCol + 3; j++) {
+      box.push(puzzle[i][j]);
+    }
+  }
+
+  return box.filter(r => r === 0);
+};
