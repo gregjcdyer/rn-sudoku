@@ -1,4 +1,4 @@
-import { generatePuzzle } from '../../../app/game/Puzzle';
+import { findBoxNumbers, generatePuzzle } from '../../../app/game/Puzzle';
 
 describe('Puzzle', () => {
   it('generates a puzzle with correct dimensions', () => {
@@ -48,5 +48,26 @@ describe('Puzzle', () => {
     }
 
     expect(boxes).not.toContain(false);
+  });
+  it.only('finds the remaining numbers for a given row', () => {
+    const puzzle = [
+      [9, 2, 3, 6, 7, 5, 8, 1, 4],
+      [4, 8, 7, 1, 9, 3, 5, 2, 6],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    ];
+
+    const remaining = findBoxNumbers(puzzle, 0, 0);
+    const remainingBox2 = findBoxNumbers(puzzle, 0, 3);
+    const remainingBox3 = findBoxNumbers(puzzle, 0, 6);
+
+    expect(remaining).toEqual([1, 5, 6]);
+    expect(remainingBox2).toEqual([2, 4, 8]);
+    expect(remainingBox3).toEqual([3, 7, 9]);
   });
 });

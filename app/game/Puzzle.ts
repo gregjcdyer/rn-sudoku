@@ -104,8 +104,9 @@ export const findBoxNumbers = (
   col: number,
 ): number[] => {
   const box: number[] = [];
-  const startRow = Math.floor(row / 3) * 3;
-  const startCol = Math.floor(col / 3) * 3;
+  const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  const startRow = row;
+  const startCol = col;
 
   for (let i = startRow; i < startRow + 3; i++) {
     for (let j = startCol; j < startCol + 3; j++) {
@@ -113,5 +114,13 @@ export const findBoxNumbers = (
     }
   }
 
-  return box.filter(r => r === 0);
+  // find the numbers that are missing from the box
+  for (let i = 0; i < box.length; i++) {
+    const index = numbers.indexOf(box[i]);
+    if (index !== -1) {
+      numbers.splice(index, 1);
+    }
+  }
+
+  return numbers;
 };
