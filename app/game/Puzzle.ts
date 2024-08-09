@@ -1,46 +1,12 @@
 import * as _ from 'lodash';
+import { getSeed } from './seeds';
 
 type Puzzle = number[][];
 
 export const generatePuzzle = (): Puzzle => {
-  const size = 9;
-  let puzzle = new Array(size).fill(0).map(() => new Array(size).fill(0));
-
-  // generate first row
-  puzzle[0] = generateUniqueRow();
-
-  for (let i = 1; i < size; i++) {
-    const row = generateUniqueRow();
-    for (let j = 0; j < size; j++) {
-      for (let k = 0; k < row.length; k++) {
-        puzzle[i][j] = row[k];
-
-        if (validatePuzzle(puzzle)) {
-          // remove the number from the row
-          row.splice(k, 1);
-          break;
-        }
-      }
-    }
-    // if the puzzle isn't valid, give up and start over
-    if (!validatePuzzle(puzzle)) {
-      break;
-    }
-  }
+  const puzzle = getSeed();
 
   return puzzle;
-};
-
-export const generateUniqueRow = (): number[] => {
-  const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-
-  // Shuffle the array using Fisher-Yates algorithm
-  for (let i = numbers.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [numbers[i], numbers[j]] = [numbers[j], numbers[i]];
-  }
-
-  return numbers;
 };
 
 export const validatePuzzle = (puzzle: Puzzle): boolean => {
