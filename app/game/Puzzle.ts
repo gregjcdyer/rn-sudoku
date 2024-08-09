@@ -4,8 +4,9 @@ import { getSeed } from './seeds';
 type Puzzle = number[][];
 
 export const generatePuzzle = (): Puzzle => {
-  const puzzle = getSeed();
+  //const puzzle = getSeed();
 
+  const puzzle = buildNewSudokuPuzzle();
   return puzzle;
 };
 
@@ -83,4 +84,141 @@ export const findBoxNumbers = (
   }
 
   return _.difference(numbers, box);
+};
+
+const getRandom = (min: number, max: number): number => {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+
+const buildNewSudokuPuzzle = (): number[][] => {
+  let gA: number;
+  let gB: number;
+  let gC: number;
+  let gStep: number;
+  let gValue1: number;
+  let gValue2: number;
+  let gRow1: number;
+  let gRow2: number;
+  let gCol1: number;
+  let gCol2: number;
+  let gTargetValue: number;
+  const gCellList: number[] = Array(81).fill(0);
+  let gOverallStep: number;
+
+  // Hard-code the initial state, which can be any valid sudoku puzzle
+  const iMatrix: number[][] = [
+    [1, 2, 3, 4, 5, 6, 7, 8, 9],
+    [4, 5, 6, 7, 8, 9, 1, 2, 3],
+    [7, 8, 9, 1, 2, 3, 4, 5, 6],
+    [3, 1, 2, 6, 4, 5, 9, 7, 8],
+    [6, 4, 5, 9, 7, 8, 3, 1, 2],
+    [9, 7, 8, 3, 1, 2, 6, 4, 5],
+    [2, 3, 1, 5, 6, 4, 8, 9, 7],
+    [5, 6, 4, 8, 9, 7, 2, 3, 1],
+    [8, 9, 7, 2, 3, 1, 5, 6, 4],
+  ];
+
+  for (gOverallStep = 1; gOverallStep <= 5; gOverallStep++) {
+    // Load list
+    for (gA = 0; gA < 81; gA++) {
+      gCellList[gA] = gA + 1;
+    }
+
+    // Shuffle list
+    for (gA = 0; gA < 81; gA++) {
+      gB = getRandom(1, 81) - 1;
+      if (gB !== gA) {
+        gC = gCellList[gB];
+        gCellList[gB] = gCellList[gA];
+        gCellList[gA] = gC;
+      }
+    }
+
+    for (gStep = 0; gStep < 81; gStep++) {
+      // We will change the following cell
+      gRow1 = Math.floor((gCellList[gStep] - 1) / 9);
+      gCol1 = (gCellList[gStep] - 1) % 9;
+
+      // We will change either its row or its col
+      if (getRandom(1, 2) === 1) {
+        // We will change its column
+        switch (gCol1 % 3) {
+          case 0:
+            gCol2 = gCol1 + (getRandom(1, 2) === 1 ? 1 : 2);
+            break;
+          case 1:
+            gCol2 = gCol1 + (getRandom(1, 2) === 1 ? 1 : -1);
+            break;
+          case 2:
+            gCol2 = gCol1 - (getRandom(1, 2) === 1 ? 2 : 1);
+            break;
+        }
+
+        gTargetValue = iMatrix[gRow1][gCol1];
+
+        do {
+          // Load
+          gValue1 = iMatrix[gRow1][gCol1];
+          gValue2 = iMatrix[gRow1][gCol2];
+
+          // Swap
+          iMatrix[gRow1][gCol1] = gValue2;
+          iMatrix[gRow1][gCol2] = gValue1;
+
+          if (gValue2 === gTargetValue) break; // Terminate if you swapped the initial number
+
+          // Seek
+          for (gA = 0; gA < 9; gA++) {
+            if (iMatrix[gA][gCol1] === gValue2 && gA !== gRow1) {
+              gRow2 = gA;
+              break;
+            }
+          }
+
+          // Initialize next
+          gRow1 = gRow2;
+        } while (true);
+      } else {
+        // We will change its row
+        switch (gRow1 % 3) {
+          case 0:
+            gRow2 = gRow1 + (getRandom(1, 2) === 1 ? 1 : 2);
+            break;
+          case 1:
+            gRow2 = gRow1 + (getRandom(1, 2) === 1 ? 1 : -1);
+            break;
+          case 2:
+            gRow2 = gRow1 - (getRandom(1, 2) === 1 ? 2 : 1);
+            break;
+        }
+
+        gTargetValue = iMatrix[gRow1][gCol1];
+
+        do {
+          // Load
+          gValue1 = iMatrix[gRow1][gCol1];
+          gValue2 = iMatrix[gRow2][gCol1];
+
+          // Swap
+          iMatrix[gRow1][gCol1] = gValue2;
+          iMatrix[gRow2][gCol1] = gValue1;
+
+          if (gValue2 === gTargetValue) break; // Terminate if you swapped the initial number
+
+          // Seek
+          for (gA = 0; gA < 9; gA++) {
+            if (iMatrix[gRow1][gA] === gValue2 && gA !== gCol1) {
+              gCol2 = gA;
+              break;
+            }
+          }
+
+          // Initialize next
+          gCol1 = gCol2;
+        } while (true);
+      }
+    }
+  }
+
+  return iMatrix;
 };
