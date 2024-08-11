@@ -105,18 +105,7 @@ const buildNewSudokuPuzzle = (): number[][] => {
   const gCellList: number[] = Array(81).fill(0);
   let gOverallStep: number;
 
-  // Hard-code the initial state, which can be any valid sudoku puzzle
-  const iMatrix: number[][] = [
-    [1, 2, 3, 4, 5, 6, 7, 8, 9],
-    [4, 5, 6, 7, 8, 9, 1, 2, 3],
-    [7, 8, 9, 1, 2, 3, 4, 5, 6],
-    [3, 1, 2, 6, 4, 5, 9, 7, 8],
-    [6, 4, 5, 9, 7, 8, 3, 1, 2],
-    [9, 7, 8, 3, 1, 2, 6, 4, 5],
-    [2, 3, 1, 5, 6, 4, 8, 9, 7],
-    [5, 6, 4, 8, 9, 7, 2, 3, 1],
-    [8, 9, 7, 2, 3, 1, 5, 6, 4],
-  ];
+  const iMatrix: number[][] = getSeed();
 
   for (gOverallStep = 1; gOverallStep <= 5; gOverallStep++) {
     // Load list
