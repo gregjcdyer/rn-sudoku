@@ -98,9 +98,9 @@ const buildNewSudokuPuzzle = (): number[][] => {
   let gValue1: number;
   let gValue2: number;
   let gRow1: number;
-  let gRow2: number;
+  let gRow2: number = 0;
   let gCol1: number;
-  let gCol2: number;
+  let gCol2: number = 0;
   let gTargetValue: number;
   const gCellList: number[] = Array(81).fill(0);
   let gOverallStep: number;
@@ -138,7 +138,7 @@ const buildNewSudokuPuzzle = (): number[][] => {
           case 1:
             gCol2 = gCol1 + (getRandom(1, 2) === 1 ? 1 : -1);
             break;
-          case 2:
+          default:
             gCol2 = gCol1 - (getRandom(1, 2) === 1 ? 2 : 1);
             break;
         }
@@ -176,7 +176,7 @@ const buildNewSudokuPuzzle = (): number[][] => {
           case 1:
             gRow2 = gRow1 + (getRandom(1, 2) === 1 ? 1 : -1);
             break;
-          case 2:
+          default:
             gRow2 = gRow1 - (getRandom(1, 2) === 1 ? 2 : 1);
             break;
         }
