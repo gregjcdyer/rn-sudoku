@@ -1,26 +1,42 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { NumberBar } from './NumberBar';
 import { validatePuzzle } from '../game/Puzzle';
+import { useState } from 'react';
 
 type GameBoardProps = {
   puzzle: number[][];
 };
 
 export const GameBoard = ({ puzzle }: GameBoardProps) => {
+  const [selectedCell, setSelectedCell] = useState<{
+    row: number;
+    col: number;
+  } | null>(null);
+  const [_, setSelectedNumber] = useState<number | null>(null);
+
   return (
     <>
       <View style={styles.container}>
         {puzzle.map((row, i) => (
           <View key={i} style={styles.box}>
             {row.map((cell, j) => (
-              <View key={j} style={styles.innerBox}>
-                <Text>{cell !== 0 ? cell : ''}</Text>
-              </View>
+              <Pressable onPress={() => setSelectedCell({ row: i, col: j })}>
+                <View
+                  key={j}
+                  style={[
+                    styles.innerBox,
+                    selectedCell?.row === i &&
+                      selectedCell?.col === j &&
+                      styles.selected,
+                  ]}>
+                  <Text>{cell !== 0 ? cell : ''}</Text>
+                </View>
+              </Pressable>
             ))}
           </View>
         ))}
       </View>
-      <NumberBar />
+      <NumberBar onPress={num => setSelectedNumber(num)} />
       <Text>{validatePuzzle(puzzle) ? 'valid' : 'invalid'}</Text>
     </>
   );
@@ -53,5 +69,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderWidth: 1,
     borderColor: 'black',
+  },
+  selected: {
+    backgroundColor: 'yellow',
   },
 });
