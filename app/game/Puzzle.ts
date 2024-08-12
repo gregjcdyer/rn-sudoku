@@ -211,3 +211,24 @@ const buildNewSudokuPuzzle = (): number[][] => {
 
   return iMatrix;
 };
+
+export const maskPuzzle = (puzzle: Puzzle, difficulty: number): Puzzle => {
+  const maskedPuzzle = _.cloneDeep(puzzle);
+
+  const cells = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+  const shuffledCells = _.shuffle(cells);
+
+  // extend shuffledCells to have difficulty elements
+  while (shuffledCells.length < difficulty * 2) {
+    shuffledCells.push(..._.shuffle(cells));
+  }
+
+  for (let i = 0; i < difficulty; i++) {
+    const row = shuffledCells.pop() ?? 0;
+    const col = shuffledCells.pop() ?? 0;
+
+    maskedPuzzle[row][col] = 0;
+  }
+
+  return maskedPuzzle;
+};
