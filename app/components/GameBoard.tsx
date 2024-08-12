@@ -1,28 +1,42 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { NumberBar } from './NumberBar';
 import { validatePuzzle } from '../game/Puzzle';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 type GameBoardProps = {
   puzzle: number[][];
 };
 
 export const GameBoard = ({ puzzle }: GameBoardProps) => {
+  const [currentPuzzle, setCurrentPuzzle] = useState(puzzle);
   const [selectedCell, setSelectedCell] = useState<{
     row: number;
     col: number;
   } | null>(null);
-  const [_, setSelectedNumber] = useState<number | null>(null);
+  const [selectedNumber, setSelectedNumber] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (selectedCell && selectedNumber !== null) {
+      const updatedPuzzle = [...currentPuzzle];
+
+      console.log(selectedCell);
+      console.log(selectedNumber);
+      updatedPuzzle[selectedCell.row][selectedCell.col] = selectedNumber;
+      setCurrentPuzzle(updatedPuzzle);
+    }
+    //eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedNumber]);
 
   return (
     <>
       <View style={styles.container}>
-        {puzzle.map((row, i) => (
+        {currentPuzzle.map((row, i) => (
           <View key={i} style={styles.box}>
             {row.map((cell, j) => (
-              <Pressable onPress={() => setSelectedCell({ row: i, col: j })}>
+              <Pressable
+                key={`{${i},${j}`}
+                onPress={() => setSelectedCell({ row: i, col: j })}>
                 <View
-                  key={j}
                   style={[
                     styles.innerBox,
                     selectedCell?.row === i &&

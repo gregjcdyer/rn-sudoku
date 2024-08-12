@@ -8,18 +8,18 @@ type NumberBarProps = {
 export const NumberBar = ({ onPress }: NumberBarProps) => {
   // generate buttons for numbers 1-9
   const buttons = [];
-  let i = 0;
-  while (i < 9) {
+  for (let i = 0; i < 9; i++) {
     buttons.push(
       <Button
+        key={i}
         title={`${i + 1}`}
         onPress={() => {
-          onPress(i);
+          console.log('pressed', i + 1);
+          onPress(i + 1);
         }}
         style={styles.button}
       />,
     );
-    i++;
   }
   return (
     <View style={styles.container}>
