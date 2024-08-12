@@ -23,8 +23,8 @@ export const NumberBar = ({ onPress }: NumberBarProps) => {
   }
   return (
     <View style={styles.container}>
-      {buttons.map((button, i) => (
-        <View key={i}>{button}</View>
+      {buttons.map((button, index) => (
+        <View key={index}>{button}</View>
       ))}
     </View>
   );
