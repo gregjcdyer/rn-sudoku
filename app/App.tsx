@@ -62,20 +62,7 @@ function App(): React.JSX.Element {
   const maskedPuzzle = maskPuzzle(puzzle, 40);
   // transform puzzle from rows into 3x3 boxes
 
-  const boxes = [];
-  for (let i = 0; i < 9; i += 3) {
-    for (let j = 0; j < 9; j += 3) {
-      const box = [];
-      for (let k = i; k < i + 3; k++) {
-        for (let l = j; l < j + 3; l++) {
-          box.push(maskedPuzzle[k][l]);
-        }
-      }
-      boxes.push(box);
-    }
-  }
-
-  console.log('maskedPuzzle:', boxes);
+  console.log('maskedPuzzle:', maskedPuzzle);
 
   return (
     <SafeAreaView style={backgroundStyle}>
@@ -91,7 +78,7 @@ function App(): React.JSX.Element {
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
           <Section>Sudoku</Section>
-          <GameBoard puzzle={boxes} />
+          <GameBoard puzzle={maskedPuzzle} />
         </View>
       </ScrollView>
     </SafeAreaView>
