@@ -76,6 +76,8 @@ function App(): React.JSX.Element {
         <View
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
+            flex: 1,
+            alignItems: 'center',
           }}>
           <Section>Sudoku</Section>
           <GameBoard puzzle={maskedPuzzle} />
