@@ -27,10 +27,50 @@ export const GameBoard = ({ puzzle }: GameBoardProps) => {
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedNumber]);
 
+  const renderCells = () => {
+    const cells = [];
+    for (let row = 0; row < 9; row++) {
+      for (let col = 0; col < 9; col++) {
+        cells.push(
+          <Pressable
+            key={`${row}-${col}`}
+            style={styles.innerBox}
+            onPress={() => {
+              console.log('row:', row, 'col:', col);
+              setSelectedCell({ row, col });
+            }}>
+            <View
+              style={[
+                styles.innerBox,
+                selectedCell?.row === row &&
+                  selectedCell?.col === col &&
+                  styles.selected,
+                getBorderStyle(row, col),
+              ]}>
+              <Text>
+                {currentPuzzle[row][col] !== 0 ? currentPuzzle[row][col] : ''}
+              </Text>
+            </View>
+          </Pressable>,
+        );
+      }
+    }
+    return cells;
+  };
+
+  const getBorderStyle = (row: number, col: number) => {
+    return {
+      borderTopWidth: row % 3 === 0 ? 2 : 1,
+      borderLeftWidth: col % 3 === 0 ? 2 : 1,
+      borderRightWidth: (col + 1) % 3 === 0 ? 2 : 1,
+      borderBottomWidth: (row + 1) % 3 === 0 ? 2 : 1,
+      borderColor: 'black',
+    };
+  };
   return (
     <>
       <View style={styles.container}>
-        {currentPuzzle.map((row, i) => (
+        {/* {currentPuzzle.map((row, i) => (
           <View key={i} style={styles.box}>
             {row.map((cell, j) => (
               <Pressable
@@ -49,6 +89,8 @@ export const GameBoard = ({ puzzle }: GameBoardProps) => {
             ))}
           </View>
         ))}
+        */}
+        {renderCells()}
       </View>
       <NumberBar onPress={num => setSelectedNumber(num)} />
       <Text>{validatePuzzle(currentPuzzle) ? 'valid' : 'invalid'}</Text>
@@ -63,8 +105,6 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     justifyContent: 'center',
     alignItems: 'center',
-    borderColor: 'black',
-    borderWidth: 1,
     width: 360,
   },
   box: {
@@ -82,8 +122,6 @@ const styles = StyleSheet.create({
     margin: 0,
     justifyContent: 'center',
     alignItems: 'center',
-    borderWidth: 1,
-    borderColor: 'black',
   },
   selected: {
     backgroundColor: 'yellow',
