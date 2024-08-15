@@ -20,6 +20,7 @@ export const GameBoard = ({ puzzle }: GameBoardProps) => {
       const updatedPuzzle = [...currentPuzzle];
       updatedPuzzle[selectedCell.row][selectedCell.col] = selectedNumber;
       setCurrentPuzzle(updatedPuzzle);
+      setSelectedNumber(null);
     }
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedNumber]);
@@ -28,6 +29,7 @@ export const GameBoard = ({ puzzle }: GameBoardProps) => {
     const cells = [];
     for (let row = 0; row < 9; row++) {
       for (let col = 0; col < 9; col++) {
+        const isOriginal = puzzle[row][col] !== 0;
         cells.push(
           <Pressable
             key={`${row}-${col}`}
@@ -44,7 +46,7 @@ export const GameBoard = ({ puzzle }: GameBoardProps) => {
                   styles.selected,
                 getBorderStyle(row, col),
               ]}>
-              <Text>
+              <Text style={isOriginal ? styles.originalText : styles.inputText}>
                 {currentPuzzle[row][col] !== 0 ? currentPuzzle[row][col] : ''}
               </Text>
             </View>
@@ -100,5 +102,11 @@ const styles = StyleSheet.create({
   },
   selected: {
     backgroundColor: 'yellow',
+  },
+  originalText: {
+    color: 'black',
+  },
+  inputText: {
+    color: 'blue',
   },
 });
