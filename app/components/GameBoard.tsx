@@ -51,7 +51,7 @@ export const GameBoard = ({ puzzle }: GameBoardProps) => {
         ))}
       </View>
       <NumberBar onPress={num => setSelectedNumber(num)} />
-      <Text>{validatePuzzle(puzzle) ? 'valid' : 'invalid'}</Text>
+      <Text>{validatePuzzle(currentPuzzle) ? 'valid' : 'invalid'}</Text>
     </>
   );
 };

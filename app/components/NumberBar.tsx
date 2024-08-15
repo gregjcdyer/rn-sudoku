@@ -14,7 +14,6 @@ export const NumberBar = ({ onPress }: NumberBarProps) => {
         key={i}
         title={`${i + 1}`}
         onPress={() => {
-          console.log('pressed', i + 1);
           onPress(i + 1);
         }}
         style={styles.button}
