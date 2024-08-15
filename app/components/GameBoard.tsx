@@ -18,9 +18,6 @@ export const GameBoard = ({ puzzle }: GameBoardProps) => {
   useEffect(() => {
     if (selectedCell && selectedNumber !== null) {
       const updatedPuzzle = [...currentPuzzle];
-
-      console.log(selectedCell);
-      console.log(selectedNumber);
       updatedPuzzle[selectedCell.row][selectedCell.col] = selectedNumber;
       setCurrentPuzzle(updatedPuzzle);
     }
@@ -69,29 +66,7 @@ export const GameBoard = ({ puzzle }: GameBoardProps) => {
   };
   return (
     <>
-      <View style={styles.container}>
-        {/* {currentPuzzle.map((row, i) => (
-          <View key={i} style={styles.box}>
-            {row.map((cell, j) => (
-              <Pressable
-                key={`{${i},${j}`}
-                onPress={() => setSelectedCell({ row: i, col: j })}>
-                <View
-                  style={[
-                    styles.innerBox,
-                    selectedCell?.row === i &&
-                      selectedCell?.col === j &&
-                      styles.selected,
-                  ]}>
-                  <Text>{cell !== 0 ? cell : ''}</Text>
-                </View>
-              </Pressable>
-            ))}
-          </View>
-        ))}
-        */}
-        {renderCells()}
-      </View>
+      <View style={styles.container}>{renderCells()}</View>
       <NumberBar onPress={num => setSelectedNumber(num)} />
       <Text>{validatePuzzle(currentPuzzle) ? 'valid' : 'invalid'}</Text>
     </>
