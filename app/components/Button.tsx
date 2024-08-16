@@ -3,7 +3,7 @@ import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 type ButtonProps = {
   title: string;
   onPress: () => void;
-  style: any;
+  style?: any;
 };
 
 export const Button = ({ title, onPress, style }: ButtonProps) => {

@@ -2,6 +2,7 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { NumberBar } from './NumberBar';
 import { validatePuzzle } from '../game/Puzzle';
 import { useEffect, useState } from 'react';
+import { UtilBar } from './UtilBar';
 
 type GameBoardProps = {
   puzzle: number[][];
@@ -69,6 +70,7 @@ export const GameBoard = ({ puzzle }: GameBoardProps) => {
   return (
     <>
       <View style={styles.container}>{renderCells()}</View>
+      <UtilBar />
       <NumberBar onPress={num => setSelectedNumber(num)} />
       <Text>{validatePuzzle(currentPuzzle) ? 'valid' : 'invalid'}</Text>
     </>
