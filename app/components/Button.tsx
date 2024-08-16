@@ -1,10 +1,16 @@
 import { ReactNode } from 'react';
-import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import {
+  StyleProp,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  ViewStyle,
+} from 'react-native';
 
 type ButtonProps = {
   title?: string;
   onPress: () => void;
-  style?: any;
+  style?: StyleProp<ViewStyle>;
   children?: ReactNode;
 };
 

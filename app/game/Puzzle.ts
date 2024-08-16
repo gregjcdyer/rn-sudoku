@@ -154,7 +154,9 @@ const buildNewSudokuPuzzle = (): number[][] => {
           iMatrix[gRow1][gCol1] = gValue2;
           iMatrix[gRow1][gCol2] = gValue1;
 
-          if (gValue2 === gTargetValue) break; // Terminate if you swapped the initial number
+          if (gValue2 === gTargetValue) {
+            break;
+          } // Terminate if you swapped the initial number
 
           // Seek
           for (gA = 0; gA < 9; gA++) {
@@ -192,7 +194,9 @@ const buildNewSudokuPuzzle = (): number[][] => {
           iMatrix[gRow1][gCol1] = gValue2;
           iMatrix[gRow2][gCol1] = gValue1;
 
-          if (gValue2 === gTargetValue) break; // Terminate if you swapped the initial number
+          if (gValue2 === gTargetValue) {
+            break;
+          } // Terminate if you swapped the initial number
 
           // Seek
           for (gA = 0; gA < 9; gA++) {
