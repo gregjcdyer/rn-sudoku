@@ -70,7 +70,7 @@ export const GameBoard = ({ puzzle }: GameBoardProps) => {
   return (
     <>
       <View style={styles.container}>{renderCells()}</View>
-      <UtilBar />
+      <UtilBar onErase={() => null} onUndo={() => null} onNote={() => null} />
       <NumberBar onPress={num => setSelectedNumber(num)} />
       <Text>{validatePuzzle(currentPuzzle) ? 'valid' : 'invalid'}</Text>
     </>

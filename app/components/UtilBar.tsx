@@ -1,12 +1,18 @@
 import { View } from 'react-native';
 import { Button } from './Button';
 
-export const UtilBar = () => {
+type UtilBarProps = {
+  onUndo: () => void;
+  onErase: () => void;
+  onNote: () => void;
+};
+
+export const UtilBar = ({ onUndo, onErase, onNote }: UtilBarProps) => {
   return (
     <View style={styles.container}>
-      <Button title="Undo" onPress={() => console.log('Undo')} />
-      <Button title="Erase" onPress={() => console.log('Erase')} />
-      <Button title="Note" onPress={() => console.log('Note')} />
+      <Button title="Undo" onPress={onUndo} />
+      <Button title="Erase" onPress={onErase} />
+      <Button title="Note" onPress={onNote} />
     </View>
   );
 };
