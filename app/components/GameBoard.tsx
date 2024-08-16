@@ -16,11 +16,15 @@ export const GameBoard = ({ puzzle }: GameBoardProps) => {
   } | null>(null);
   const [selectedNumber, setSelectedNumber] = useState<number | null>(null);
 
+  const updatePuzzle = (row: number, col: number, value: number) => {
+    const updatedPuzzle = [...currentPuzzle];
+    updatedPuzzle[row][col] = value;
+    setCurrentPuzzle(updatedPuzzle);
+  };
+
   useEffect(() => {
     if (selectedCell && selectedNumber !== null) {
-      const updatedPuzzle = [...currentPuzzle];
-      updatedPuzzle[selectedCell.row][selectedCell.col] = selectedNumber;
-      setCurrentPuzzle(updatedPuzzle);
+      updatePuzzle(selectedCell.row, selectedCell.col, selectedNumber);
       setSelectedNumber(null);
     }
     //eslint-disable-next-line react-hooks/exhaustive-deps
@@ -70,7 +74,13 @@ export const GameBoard = ({ puzzle }: GameBoardProps) => {
   return (
     <>
       <View style={styles.container}>{renderCells()}</View>
-      <UtilBar onErase={() => null} onUndo={() => null} onNote={() => null} />
+      <UtilBar
+        onErase={() =>
+          selectedCell && updatePuzzle(selectedCell.row, selectedCell.col, 0)
+        }
+        onUndo={() => null}
+        onNote={() => null}
+      />
       <NumberBar onPress={num => setSelectedNumber(num)} />
       <Text>{validatePuzzle(currentPuzzle) ? 'valid' : 'invalid'}</Text>
     </>
