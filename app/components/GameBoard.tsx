@@ -40,7 +40,6 @@ export const GameBoard = ({ puzzle }: GameBoardProps) => {
             key={`${row}-${col}`}
             style={styles.innerBox}
             onPress={() => {
-              console.log('row:', row, 'col:', col);
               setSelectedCell({ row, col });
             }}>
             <View
