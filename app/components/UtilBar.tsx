@@ -11,15 +11,27 @@ type UtilBarProps = {
 export const UtilBar = ({ onUndo, onErase, onNote }: UtilBarProps) => {
   return (
     <View style={styles.container}>
-      <Button title="Undo" onPress={onUndo} />
-      <Button title="" onPress={onErase}>
+      <Button onPress={onUndo}>
+        <SvgUri
+          width="30"
+          height="30"
+          uri="https://www.svgrepo.com/show/529263/undo-left.svg"
+        />
+      </Button>
+      <Button onPress={onErase}>
         <SvgUri
           width="30"
           height="30"
           uri="https://www.svgrepo.com/show/450842/erase.svg"
         />
       </Button>
-      <Button title="Note" onPress={onNote} />
+      <Button onPress={onNote}>
+        <SvgUri
+          width="30"
+          height="30"
+          uri="https://www.svgrepo.com/show/511086/note-edit.svg"
+        />
+      </Button>
     </View>
   );
 };
@@ -28,8 +40,9 @@ const styles = {
   container: {
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignItems: 'center',
     width: 360,
+    gap: 40,
   } as const,
 };
