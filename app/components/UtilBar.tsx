@@ -34,5 +34,6 @@ const styles = {
     alignItems: 'center',
     width: 360,
     gap: 40,
+    marginTop: 6,
   } as const,
 };

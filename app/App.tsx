@@ -60,9 +60,6 @@ function App(): React.JSX.Element {
 
   const puzzle = generatePuzzle();
   const maskedPuzzle = maskPuzzle(puzzle, 40);
-  // transform puzzle from rows into 3x3 boxes
-
-  console.log('maskedPuzzle:', maskedPuzzle);
 
   return (
     <SafeAreaView style={backgroundStyle}>
