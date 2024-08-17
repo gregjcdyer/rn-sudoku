@@ -1,6 +1,8 @@
 import { View } from 'react-native';
 import { Button } from './Button';
-import { SvgUri } from 'react-native-svg';
+import Undo from '../icons/undo.svg';
+import Erase from '../icons/erase.svg';
+import Note from '../icons/note.svg';
 
 type UtilBarProps = {
   onUndo: () => void;
@@ -12,25 +14,13 @@ export const UtilBar = ({ onUndo, onErase, onNote }: UtilBarProps) => {
   return (
     <View style={styles.container}>
       <Button onPress={onUndo}>
-        <SvgUri
-          width="30"
-          height="30"
-          uri="https://www.svgrepo.com/show/529263/undo-left.svg"
-        />
+        <Undo width="30" height="30" />
       </Button>
       <Button onPress={onErase}>
-        <SvgUri
-          width="30"
-          height="30"
-          uri="https://www.svgrepo.com/show/450842/erase.svg"
-        />
+        <Erase width="30" height="30" />
       </Button>
       <Button onPress={onNote}>
-        <SvgUri
-          width="30"
-          height="30"
-          uri="https://www.svgrepo.com/show/511086/note-edit.svg"
-        />
+        <Note width="30" height="30" />
       </Button>
     </View>
   );
