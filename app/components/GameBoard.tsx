@@ -31,19 +31,19 @@ export const GameBoard = ({ puzzle }: GameBoardProps) => {
   }, [selectedNumber]);
 
   useEffect(() => {
-    if (puzzle.every(row => row.every(cell => cell !== 0))) {
+    if (currentPuzzle.every(row => row.every(cell => cell !== 0))) {
       const valid = validatePuzzle(currentPuzzle);
       if (valid) {
         console.log('Puzzle is solved');
       }
     }
-  }, [currentPuzzle, puzzle]);
+  }, [currentPuzzle]);
 
   const renderCells = () => {
     const cells = [];
     for (let row = 0; row < 9; row++) {
       for (let col = 0; col < 9; col++) {
-        const isOriginal = puzzle[row][col] !== 0;
+        const isOriginal = currentPuzzle[row][col] !== 0;
         cells.push(
           <Pressable
             key={`${row}-${col}`}
