@@ -30,6 +30,15 @@ export const GameBoard = ({ puzzle }: GameBoardProps) => {
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedNumber]);
 
+  useEffect(() => {
+    if (puzzle.every(row => row.every(cell => cell !== 0))) {
+      const valid = validatePuzzle(currentPuzzle);
+      if (valid) {
+        console.log('Puzzle is solved');
+      }
+    }
+  }, [currentPuzzle, puzzle]);
+
   const renderCells = () => {
     const cells = [];
     for (let row = 0; row < 9; row++) {
@@ -88,7 +97,6 @@ export const GameBoard = ({ puzzle }: GameBoardProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center',
@@ -112,10 +120,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   selected: {
-    backgroundColor: 'yellow',
+    backgroundColor: 'lightgray',
   },
   originalText: {
     color: 'black',
+    fontWeight: 'bold',
   },
   inputText: {
     color: 'blue',
