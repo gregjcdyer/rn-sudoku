@@ -1,15 +1,7 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
 import React from 'react';
 import type { PropsWithChildren } from 'react';
 import {
   SafeAreaView,
-  ScrollView,
   StatusBar,
   StyleSheet,
   Text,
@@ -62,24 +54,13 @@ function App(): React.JSX.Element {
   const maskedPuzzle = maskPuzzle(puzzle, 40);
 
   return (
-    <SafeAreaView style={backgroundStyle}>
+    <SafeAreaView style={styles.appContainer}>
       <StatusBar
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={backgroundStyle.backgroundColor}
       />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-            flex: 1,
-            alignItems: 'center',
-          }}>
-          <Section>Sudoku</Section>
-          <GameBoard puzzle={maskedPuzzle} />
-        </View>
-      </ScrollView>
+      <Section>Sudoku</Section>
+      <GameBoard puzzle={maskedPuzzle} />
     </SafeAreaView>
   );
 }
@@ -100,6 +81,11 @@ const styles = StyleSheet.create({
   },
   highlight: {
     fontWeight: '700',
+  },
+  appContainer: {
+    flex: 1,
+    backgroundColor: 'white',
+    alignItems: 'center',
   },
 });
 
