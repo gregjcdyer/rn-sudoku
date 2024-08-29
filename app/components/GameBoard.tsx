@@ -9,7 +9,9 @@ type GameBoardProps = {
 };
 
 export const GameBoard = ({ puzzle }: GameBoardProps) => {
-  const [currentPuzzle, setCurrentPuzzle] = useState(puzzle);
+  const [currentPuzzle, setCurrentPuzzle] = useState(
+    puzzle.map(row => [...row]),
+  );
   const [selectedCell, setSelectedCell] = useState<{
     row: number;
     col: number;
@@ -43,7 +45,7 @@ export const GameBoard = ({ puzzle }: GameBoardProps) => {
     const cells = [];
     for (let row = 0; row < 9; row++) {
       for (let col = 0; col < 9; col++) {
-        const isOriginal = currentPuzzle[row][col] !== 0;
+        const isOriginal = puzzle[row][col] !== 0;
         cells.push(
           <Pressable
             key={`${row}-${col}`}
