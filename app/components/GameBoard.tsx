@@ -82,8 +82,8 @@ export const GameBoard = ({ puzzle }: GameBoardProps) => {
     };
   };
   return (
-    <>
-      <View style={styles.container}>{renderCells()}</View>
+    <View style={styles.container}>
+      <View style={styles.board}>{renderCells()}</View>
       <UtilBar
         onErase={() =>
           selectedCell && updatePuzzle(selectedCell.row, selectedCell.col, 0)
@@ -93,17 +93,23 @@ export const GameBoard = ({ puzzle }: GameBoardProps) => {
       />
       <NumberBar onPress={num => setSelectedNumber(num)} />
       <Text>{validatePuzzle(currentPuzzle) ? 'valid' : 'invalid'}</Text>
-    </>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 360,
+  },
+  board: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center',
     alignItems: 'center',
-    width: 360,
   },
   box: {
     flexDirection: 'row',
